@@ -1,0 +1,49 @@
+<mat-toolbar>Registro de Venta</mat-toolbar>
+
+<div class="example-container">
+
+    <mat-form-field>
+        <mat-select placeholder="Seleccione persona" [(value)]="idPersonaSeleccionada">
+            <mat-option *ngFor="let p of personas" [value]="p.idPersona">
+                {{ p.nombres }} {{ p.apellidos }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Seleccione producto" [(value)]="productoSeleccionado">
+            <mat-option *ngFor="let p of productos" [value]="p">
+                {{ p.nombre }} {{ p.marca }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Cantidad" [(ngModel)]="cantidad" type="number">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="agregarDetalle()">Agregar Detalle</button>
+
+    <br *ngIf="detalleVenta.length>0">
+
+    <mat-grid-list class="font-bold" cols="3" rowHeight="30px" *ngIf="detalleVenta.length>0">
+        <mat-grid-tile>Correlativo</mat-grid-tile>
+        <mat-grid-tile>Cantidad</mat-grid-tile>
+        <mat-grid-tile>Producto</mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="3" rowHeight="30px" *ngFor="let d of detalleVenta; let i=index">
+        <mat-grid-tile>{{ i + 1 }}</mat-grid-tile>
+        <mat-grid-tile>{{d.cantidad}}</mat-grid-tile>
+        <mat-grid-tile>{{d.producto.nombre}} {{d.producto.marca}}</mat-grid-tile>
+    </mat-grid-list>
+
+    <br>
+
+    <button mat-raised-button color="primary" (click)="aceptar()" [disabled]="estadoBotonRegistrar()">Registrar</button>
+    <br>
+    <button mat-raised-button color="accent" (click)="cancelar()" type="button" [disabled]="estadoBotonRegistrar()">
+        <mat-icon>close</mat-icon>
+        <span>Cancelar</span>
+    </button>
+
+</div>
